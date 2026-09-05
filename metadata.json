@@ -1,0 +1,11 @@
+{
+  "name": "VAP ugdymo pagalba",
+  "description": "Struktūruota pagalbos ir komunikacijos sistema Vilniaus Antakalnio progimnazijai, skirta mokinių elgesio valdymui, specialistų kontaktams ir laiškų šablonams.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
