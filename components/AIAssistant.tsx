@@ -219,7 +219,16 @@ Jei vartotojas mini krizę ar didelį stresą, pirmiausia pasiūlyk trumpą nusi
         })
       });
 
-      const data = await res.json();
+      let data: any = {};
+      try {
+        data = await res.json();
+      } catch (e) {
+        throw new Error(`Serverio ryšio klaida (${res.status})`);
+      }
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
 
       if (!res.ok) {
         throw new Error(data.error || `Serverio atsakymo klaida (${res.status})`);
@@ -233,9 +242,12 @@ Jei vartotojas mini krizę ar didelį stresą, pirmiausia pasiūlyk trumpą nusi
 
     } catch (err: any) {
       console.error("DI Pagalvėlės klaida:", err);
+      const errMsg = err?.message || 'ryšio triktis';
       setMessages(prev => [...prev, { 
         role: 'bot', 
-        text: `Šiuo metu nepavyko gauti atsakymo (${err?.message || 'ryšio triktis'}). Prašome pabandyti dar kartą.`, 
+        text: errMsg.includes('GEMINI_API_KEY') 
+          ? errMsg 
+          : `Šiuo metu nepavyko gauti atsakymo (${errMsg}). Prašome pabandyti dar kartą.`, 
         timestamp: now 
       }]);
     } finally { 

@@ -1,61 +1,102 @@
-import { GoogleGenAI, Modality } from '@google/genai';
-
-let aiClient = null;
-
-function getAI() {
-  const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
-  if (!apiKey) {
-    throw new Error('GEMINI_API_KEY nėra sukonfigūruotas serveryje.');
-  }
-  if (!aiClient) {
-    aiClient = new GoogleGenAI({ apiKey });
-  }
-  return aiClient;
-}
-
 export const handler = async (event, context) => {
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      },
+      body: '',
+    };
+  }
+
   if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
+    return {
+      statusCode: 405,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({ error: 'Metodas nepalaikomas' }),
+    };
   }
 
   try {
-    const body = JSON.parse(event.body);
+    const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY || process.env.VITE_GEMINI_API_KEY;
+    if (!apiKey) {
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify({ audio: null, error: 'GEMINI_API_KEY nėra nustatytas' }),
+      };
+    }
+
+    let body = {};
+    try {
+      body = typeof event.body === 'string' ? JSON.parse(event.body) : (event.body || {});
+    } catch {
+      return {
+        statusCode: 400,
+        headers: { 'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*' },
+        body: JSON.stringify({ error: 'Neteisingas JSON formatas' }),
+      };
+    }
+
     const { text } = body;
-    
     if (!text) {
       return {
         statusCode: 400,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ error: 'Tekstas negali būti tuščias.' })
+        headers: { 'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*' },
+        body: JSON.stringify({ error: 'Tekstas negali būti tuščias' }),
       };
     }
-    
-    const ai = getAI();
-    const response = await ai.models.generateContent({
-      model: 'gemini-3.1-flash-tts-preview',
+
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+
+    const payload = {
       contents: [{ parts: [{ text }] }],
-      config: {
-        responseModalities: [Modality.AUDIO],
+      generationConfig: {
+        responseModalities: ["AUDIO"],
         speechConfig: {
           voiceConfig: {
-            prebuiltVoiceConfig: { voiceName: 'Kore' },
-          },
-        },
-      },
+            prebuiltVoiceConfig: {
+              voiceName: "Kore"
+            }
+          }
+        }
+      }
+    };
+
+    const apiResponse = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
     });
-    
-    const audio = response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data || null;
+
+    const data = await apiResponse.json();
+    const audio = data.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data || null;
+
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ audio })
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({ audio }),
     };
   } catch (err) {
-    console.error('[API /api/tts klaida]:', err);
+    console.error('[Netlify Function /tts klaida]:', err);
     return {
-      statusCode: 500,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: err.message || 'Nepavyko sugeneruoti balso' })
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({ audio: null, error: err.message }),
     };
   }
 };
