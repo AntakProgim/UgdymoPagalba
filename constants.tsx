@@ -11,9 +11,9 @@ export const INITIAL_SPECIALISTS: Specialist[] = [
   { id: 'adm6', name: 'Šarūnė Biržytė', category: SpecialistCategory.ADMINISTRACIJA, classes: 'RAŠTINĖ / ADMINISTRATORĖ', phone: '+37065900612', office: '43', email: 'rastine@antakalnio.lt' },
   
   // Socialiniai pedagogai
-  { id: 's1', name: 'Edita Barkovskienė', category: SpecialistCategory.SOCIALINIAI, classes: 'SOCIALINĖ PEDAGOGĖ (1, 5, 6 KL.)', phone: '+37065900940', office: '44', email: 'edita.barkovskiene@antakalnio.lt' },
-  { id: 's2', name: 'Agnė Vanagienė', category: SpecialistCategory.SOCIALINIAI, classes: 'SOCIALINĖ PEDAGOGĖ (2, 3, 4 KL.)', phone: '+37065900940', office: '44', email: 'agne.vanagiene@antakalnio.lt' },
-  { id: 's3', name: 'Neringa Kazėnaitė-Piragė', category: SpecialistCategory.SOCIALINIAI, classes: 'SOCIALINĖ PEDAGOGĖ (7, 8 KL.)', phone: '+37065900783', office: '58', email: 'neringa.kazenaite@antakalnio.lt' },
+  { id: 's1', name: 'Edita Barkovskienė', category: SpecialistCategory.SOCIALINIAI, classes: 'SOCIALINĖ PEDAGOGĖ (6, 7, 8 KL.)', phone: '+37065900940', office: '44', email: 'edita.barkovskiene@antakalnio.lt' },
+  { id: 's2', name: 'Agnė Vanagienė', category: SpecialistCategory.SOCIALINIAI, classes: 'SOCIALINĖ PEDAGOGĖ (3, 4, 5 KL.)', phone: '+37065900940', office: '44', email: 'agne.vanagiene@antakalnio.lt' },
+  { id: 's3', name: 'Neringa Kazėnaitė-Piragė', category: SpecialistCategory.SOCIALINIAI, classes: 'SOCIALINĖ PEDAGOGĖ (1, 2 KL.)', phone: '+37065900783', office: '58', email: 'neringa.kazenaite@antakalnio.lt' },
   
   // Logopedai
   { id: 'l1', name: 'Grita Rakauskaitė', category: SpecialistCategory.LOGOPEDAI, classes: '1 KLASĖS', phone: '+37061149019', office: '14', email: 'grita.rakauskaite@antakalnio.lt' },

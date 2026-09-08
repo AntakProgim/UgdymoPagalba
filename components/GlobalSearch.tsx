@@ -53,7 +53,7 @@ const GlobalSearch: React.FC<GlobalSearchProps> = ({
   // Load specialists from localStorage or fallback
   const allSpecialists = useMemo<Specialist[]>(() => {
     try {
-      const saved = localStorage.getItem('vap_specialists_v6');
+      const saved = localStorage.getItem('vap_specialists_v7');
       if (saved) {
         return JSON.parse(saved);
       }

@@ -55,7 +55,7 @@ const CATEGORY_META: Record<SpecialistCategory, { bg: string, color: string, ico
   },
 };
 
-const STORAGE_KEY = 'vap_specialists_v6';
+const STORAGE_KEY = 'vap_specialists_v7';
 
 const isExcludedSpecialist = (s: Partial<Specialist>): boolean => {
   const name = (s.name || '').toLowerCase();
@@ -74,7 +74,7 @@ interface ContactsTabProps {
 const ContactsTab: React.FC<ContactsTabProps> = ({ initialSearchQuery, highlightSpecialistId }) => {
   const [specialists, setSpecialists] = useState<Specialist[]>(() => {
     // Purge legacy storage keys that might contain stale entries
-    ['vap_specialists_v1', 'vap_specialists_v2', 'vap_specialists_v3', 'vap_specialists_v4', 'vap_specialists_v5'].forEach(key => {
+    ['vap_specialists_v1', 'vap_specialists_v2', 'vap_specialists_v3', 'vap_specialists_v4', 'vap_specialists_v5', 'vap_specialists_v6'].forEach(key => {
       try {
         localStorage.removeItem(key);
       } catch {}
@@ -90,8 +90,41 @@ const ContactsTab: React.FC<ContactsTabProps> = ({ initialSearchQuery, highlight
         return combined
           .filter(s => !isExcludedSpecialist(s))
           .map(s => {
-            if (s.name === 'Edita Sinkevič') {
-              return { ...s, name: 'Edita Barkovskienė', email: 'edita.barkovskiene@antakalnio.lt' };
+            if (s.name === 'Edita Sinkevič' || s.name === 'Edita Barkovskienė' || s.id === 's1') {
+              return { 
+                ...s, 
+                id: 's1',
+                name: 'Edita Barkovskienė', 
+                classes: 'SOCIALINĖ PEDAGOGĖ (6, 7, 8 KL.)',
+                phone: '+37065900940',
+                office: '44',
+                email: 'edita.barkovskiene@antakalnio.lt',
+                category: SpecialistCategory.SOCIALINIAI
+              };
+            }
+            if (s.name === 'Agnė Vanagienė' || s.id === 's2') {
+              return {
+                ...s,
+                id: 's2',
+                name: 'Agnė Vanagienė',
+                classes: 'SOCIALINĖ PEDAGOGĖ (3, 4, 5 KL.)',
+                phone: '+37065900940',
+                office: '44',
+                email: 'agne.vanagiene@antakalnio.lt',
+                category: SpecialistCategory.SOCIALINIAI
+              };
+            }
+            if (s.name === 'Neringa Kazėnaitė-Piragė' || s.id === 's3') {
+              return {
+                ...s,
+                id: 's3',
+                name: 'Neringa Kazėnaitė-Piragė',
+                classes: 'SOCIALINĖ PEDAGOGĖ (1, 2 KL.)',
+                phone: s.phone || '+37065900783',
+                office: s.office || '58',
+                email: s.email || 'neringa.kazenaite@antakalnio.lt',
+                category: SpecialistCategory.SOCIALINIAI
+              };
             }
             if (s.id === 'adm2' || s.name.includes('Motiejūn') || (s.email && s.email.includes('motiejun'))) {
               return { 
