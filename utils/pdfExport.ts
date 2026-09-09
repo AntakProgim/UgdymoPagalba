@@ -271,3 +271,292 @@ export function printTemplateDirectly(data: ExportPdfData): void {
     exportTemplateToPdf(data);
   }
 }
+
+/**
+ * Mokyklos susitarimų (PEPIS) HTML šablonas A4 spaudai ir PDF eksportui
+ */
+export function buildAgreementsHtml(): string {
+  const dateFormatted = formatDateLithuanian();
+
+  return `
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; width: 794px; min-height: 1050px; padding: 40px 48px; box-sizing: border-box; background: #fffcf8; color: #1e293b; position: relative; border: 12px solid #fef3c7;">
+      
+      <!-- Viršutinis dekoratyvinis rėmelis / Logotipas -->
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div style="display: inline-block; padding: 4px 14px; background: #fef3c7; border-radius: 9999px; font-size: 10px; font-weight: 900; color: #92400e; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px;">
+          Vilniaus Antakalnio progimnazija
+        </div>
+        <h1 style="margin: 0; font-size: 26px; font-weight: 900; color: #b45309; text-transform: uppercase; letter-spacing: 2px; line-height: 1.2;">
+          MOKYKLOS SUSITARIMAI
+        </h1>
+        <div style="font-size: 11px; font-weight: 700; color: #78350f; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;">
+          Parengti pagal PEPIS (Pozityvaus elgesio palaikymo ir intervencijų sistemos) principus
+        </div>
+      </div>
+
+      <!-- Susitarimų lentelė -->
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 11px; line-height: 1.45;">
+        <thead>
+          <tr style="background: #fbbf24; color: #78350f;">
+            <th style="padding: 10px 12px; border: 1.5px solid #d97706; text-align: left; font-weight: 900; text-transform: uppercase; letter-spacing: 0.8px; width: 22%;">
+              ERDVĖ
+            </th>
+            <th style="padding: 10px 12px; border: 1.5px solid #d97706; text-align: left; font-weight: 900; text-transform: uppercase; letter-spacing: 0.8px; width: 26%;">
+              BENDRUOMENIŠKUMAS
+            </th>
+            <th style="padding: 10px 12px; border: 1.5px solid #d97706; text-align: left; font-weight: 900; text-transform: uppercase; letter-spacing: 0.8px; width: 26%;">
+              PAGARBA IR TOLERANCIJA
+            </th>
+            <th style="padding: 10px 12px; border: 1.5px solid #d97706; text-align: left; font-weight: 900; text-transform: uppercase; letter-spacing: 0.8px; width: 26%;">
+              ATSAKOMYBĖ
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- KLASĖJE -->
+          <tr style="background: #ffffff;">
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; font-weight: 900; color: #b45309; text-transform: uppercase; font-size: 11px;">
+              KLASĖJE
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Padedu ir priimu kiekvieną, įtraukiu į veiklą.
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Klausau, kai kitas kalba, leidžiu pasisakyti.
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Į pamoką ateinu laiku ir turiu reikiamas priemones.
+            </td>
+          </tr>
+
+          <!-- VALGYKLOJE -->
+          <tr style="background: #fffbeb;">
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; font-weight: 900; color: #b45309; text-transform: uppercase; font-size: 11px;">
+              VALGYKLOJE
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Eilėje laukiu kantriai.
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Bendrauju ramiu balsu.
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Pavalgęs nusinešu indus, palieku stalą švarų.
+            </td>
+          </tr>
+
+          <!-- TUALETUOSE -->
+          <tr style="background: #ffffff;">
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; font-weight: 900; color: #b45309; text-transform: uppercase; font-size: 11px;">
+              TUALETUOSE
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Gerbiu laukiančiųjų eilę, neužtrunku.
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Saugau kito privatumą (nežiūriu, netrukdau).
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Palieku patalpą tvarkingą, saugau inventorių bei tausoju popierių ir muilą.
+            </td>
+          </tr>
+
+          <!-- KORIDORIUOSE -->
+          <tr style="background: #fffbeb;">
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; font-weight: 900; color: #b45309; text-transform: uppercase; font-size: 11px;">
+              KORIDORIUOSE
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Pasisveikinu ir praleidžiu einantįjį.
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Bendrauju ramiu balsu ir neužgaunant kitų (be keiksmažodžių).
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Einu saugiai (nebėgioju), palieku praėjimą kitiems laukdamas vienoje sienos pusėje.
+            </td>
+          </tr>
+
+          <!-- PERSIRENGIMO KAMBARIUOSE -->
+          <tr style="background: #ffffff;">
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; font-weight: 900; color: #b45309; text-transform: uppercase; font-size: 11px;">
+              PERSIRENGIMO KAMBARIUOSE
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Priimu kiekvieną ir elgiuosi taip, kad neįžeisčiau ir neskaudinčiau kitų.
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Liečiu tik savo daiktus ir drabužius.
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Tvarkingai susidedu daiktus, greitai persirengiu.
+            </td>
+          </tr>
+
+          <!-- VISUR IR VISADA -->
+          <tr style="background: #fffbeb;">
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; font-weight: 900; color: #b45309; text-transform: uppercase; font-size: 11px;">
+              VISUR IR VISADA
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Pasirūpinu ir padedu kitam.<br/>
+              <strong>Telefoną laikau kuprinėje.</strong>
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              Giriu girdint visiems, kritiką išsakau individualiai.
+            </td>
+            <td style="padding: 11px 12px; border: 1.5px solid #fde68a; color: #334155;">
+              <strong>Atsimenu, kad visos emocijos yra leistinos, bet ne visas elgesys yra priimtinas.</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Direktoriaus Tomo Jankūno padėka -->
+      <div style="background: #ffffff; border: 2px solid #f59e0b; border-radius: 12px; padding: 18px 22px; margin-bottom: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+        <div style="display: flex; align-items: flex-start; gap: 14px;">
+          <div style="font-size: 28px; line-height: 1;">🌟</div>
+          <div style="flex: 1;">
+            <div style="font-size: 13px; font-weight: 700; color: #78350f; font-style: italic; line-height: 1.5; margin-bottom: 8px;">
+              „Ačiū, kad kuriate saugią ir bendradarbiaujančią mokyklos aplinką. Tik kartu galime sukurti mokyklą, kurioje vadovaujamės bendrais susitarimais ir vertybėmis!“
+            </div>
+            <div style="font-size: 11px; font-weight: 900; color: #92400e; text-transform: uppercase; letter-spacing: 0.5px;">
+              Tomas Jankūnas
+            </div>
+            <div style="font-size: 10px; font-weight: 600; color: #64748b;">
+              Vilniaus Antakalnio progimnazijos direktorius
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apatinė paraštė / data -->
+      <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #e2e8f0; padding-top: 12px; font-size: 9px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px;">
+        <div>Vilniaus Antakalnio progimnazija • www.antakalnio.lt</div>
+        <div>Susitarimai atnaujinti: <strong>${dateFormatted}</strong></div>
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * Eksportuoja Mokyklos susitarimus į PDF failą
+ */
+export async function exportAgreementsToPdf(): Promise<void> {
+  const container = document.createElement('div');
+  container.style.position = 'fixed';
+  container.style.left = '-9999px';
+  container.style.top = '-9999px';
+  container.style.zIndex = '-1000';
+  container.style.width = '794px';
+  container.innerHTML = buildAgreementsHtml();
+  document.body.appendChild(container);
+
+  try {
+    const canvas = await html2canvas(container, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: '#fffcf8',
+      logging: false,
+    });
+
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4',
+    });
+
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pdfWidth;
+    const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    if (imgHeight <= pdfHeight) {
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+    } else {
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pdfHeight;
+
+      while (heightLeft > 0) {
+        position = position - pdfHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pdfHeight;
+      }
+    }
+
+    const filename = `Vilniaus_Antakalnio_progimnazija_Mokyklos_susitarimai_PEPIS.pdf`;
+    pdf.save(filename);
+  } finally {
+    document.body.removeChild(container);
+  }
+}
+
+/**
+ * Atidaro susitarimų spausdinimo langą
+ */
+export function printAgreementsDirectly(): void {
+  const iframe = document.createElement('iframe');
+  iframe.style.position = 'fixed';
+  iframe.style.right = '0';
+  iframe.style.bottom = '0';
+  iframe.style.width = '0';
+  iframe.style.height = '0';
+  iframe.style.border = '0';
+  document.body.appendChild(iframe);
+
+  const html = `
+    <!DOCTYPE html>
+    <html lang="lt">
+    <head>
+      <meta charset="UTF-8">
+      <title>Mokyklos susitarimai (PEPIS) - Vilniaus Antakalnio progimnazija</title>
+      <style>
+        @page {
+          size: A4 portrait;
+          margin: 6mm;
+        }
+        body {
+          margin: 0;
+          padding: 0;
+          background: #ffffff;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      </style>
+    </head>
+    <body>
+      ${buildAgreementsHtml()}
+    </body>
+    </html>
+  `;
+
+  const doc = iframe.contentWindow?.document;
+  if (doc) {
+    doc.open();
+    doc.write(html);
+    doc.close();
+
+    setTimeout(() => {
+      try {
+        iframe.contentWindow?.focus();
+        iframe.contentWindow?.print();
+      } catch (err) {
+        console.warn('Print blocked, falling back to PDF download:', err);
+        exportAgreementsToPdf();
+      } finally {
+        setTimeout(() => {
+          try {
+            document.body.removeChild(iframe);
+          } catch {}
+        }, 3000);
+      }
+    }, 400);
+  } else {
+    exportAgreementsToPdf();
+  }
+}

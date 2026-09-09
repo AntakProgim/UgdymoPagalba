@@ -2,21 +2,24 @@ import React from 'react';
 import { 
   ExternalLink, 
   FileText, 
-  CheckCircle2,
-  Smile,
-  MessageSquareText,
-  Trees,
-  ArrowRight,
-  Sparkles,
-  Award,
-  ShieldCheck,
-  FileSearch,
-  BookOpenCheck,
-  LayoutTemplate,
-  Map,
-  CalendarDays,
-  Users2
+  CheckCircle2, 
+  Smile, 
+  MessageSquareText, 
+  Trees, 
+  ArrowRight, 
+  Sparkles, 
+  Award, 
+  ShieldCheck, 
+  FileSearch, 
+  BookOpenCheck, 
+  LayoutTemplate, 
+  Map, 
+  CalendarDays, 
+  Users2,
+  Download
 } from 'lucide-react';
+import SchoolAgreements from './SchoolAgreements';
+import { exportAgreementsToPdf } from '../utils/pdfExport';
 
 interface IntroTabProps {
   setActiveTab: (tab: string) => void;
@@ -120,12 +123,37 @@ const IntroTab: React.FC<IntroTabProps> = ({ setActiveTab }) => {
                </a>
             </div>
 
+            {/* Mokyklos susitarimai parengti pagal PEPIS principus ir Direktoriaus Tomo Jankūno padėka */}
+            <SchoolAgreements />
+
             {/* Svarbūs progimnazijos dokumentai */}
             <div className="space-y-4 my-12">
               <p className="font-black text-slate-900 uppercase tracking-tight text-lg m-0 mb-6">Svarbūs progimnazijos dokumentai:</p>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Dokumentas 1: Situacijų valdymas */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Dokumentas 1: Mokyklos susitarimai (PEPIS) */}
+                <div className="bg-amber-50/60 p-6 rounded-[2rem] border border-amber-200 relative overflow-hidden group">
+                  <div className="flex items-center space-x-4 mb-6 relative z-10">
+                      <div className="bg-amber-600 p-3 rounded-xl text-white shadow-lg shadow-amber-200">
+                        <FileText size={20} />
+                      </div>
+                      <h4 className="font-black text-amber-950 uppercase tracking-tight m-0 text-sm leading-tight">
+                        MOKYKLOS SUSITARIMAI
+                      </h4>
+                  </div>
+                  <p className="text-[13px] text-slate-700 font-bold mb-6 leading-relaxed relative z-10">
+                    Susitarimai pagal PEPIS principus (PDF plakatas spaudai).
+                  </p>
+                  <button 
+                    onClick={() => exportAgreementsToPdf()}
+                    className="inline-flex items-center space-x-2 px-4 py-2 bg-white border border-amber-200 text-amber-800 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-amber-600 hover:text-white transition-all shadow-sm"
+                  >
+                    <Download size={12} />
+                    <span>Atsisiųsti PDF</span>
+                  </button>
+                </div>
+
+                {/* Dokumentas 2: Situacijų valdymas */}
                 <div className="bg-blue-50/50 p-6 rounded-[2rem] border border-blue-100 relative overflow-hidden group">
                   <div className="flex items-center space-x-4 mb-6 relative z-10">
                       <div className="bg-blue-600 p-3 rounded-xl text-white shadow-lg shadow-blue-200">
@@ -148,7 +176,7 @@ const IntroTab: React.FC<IntroTabProps> = ({ setActiveTab }) => {
                   </a>
                 </div>
 
-                {/* Dokumentas 2: Poveikio priemonės */}
+                {/* Dokumentas 3: Poveikio priemonės */}
                 <div className="bg-blue-50/50 p-6 rounded-[2rem] border border-blue-100 relative overflow-hidden group">
                   <div className="flex items-center space-x-4 mb-6 relative z-10">
                       <div className="bg-blue-600 p-3 rounded-xl text-white shadow-lg shadow-blue-200">
