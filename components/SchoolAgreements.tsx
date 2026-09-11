@@ -161,14 +161,18 @@ const SchoolAgreements: React.FC = () => {
 
           {/* Eksporto ir spausdinimo mygtukai */}
           <div className="flex flex-wrap items-center gap-3">
-            <button
-              onClick={handleDownloadPdf}
-              disabled={isExporting}
-              className="inline-flex items-center space-x-2.5 px-5 py-3 bg-amber-600 hover:bg-amber-700 active:scale-95 text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-md hover:shadow-lg disabled:opacity-50"
+            <a
+              href="/Vilniaus_Antakalnio_progimnazija_Mokyklos_susitarimai_PEPIS.pdf"
+              download="Vilniaus_Antakalnio_progimnazija_Mokyklos_susitarimai_PEPIS.pdf"
+              onClick={() => {
+                setNotification('Atsisiunčiamas oficialus mokyklos susitarimų PDF dokumentas!');
+                setTimeout(() => setNotification(null), 5000);
+              }}
+              className="inline-flex items-center space-x-2.5 px-5 py-3 bg-amber-600 hover:bg-amber-700 active:scale-95 text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-md hover:shadow-lg cursor-pointer"
             >
               <Download size={15} />
-              <span>{isExporting ? 'Ruošiamas PDF...' : 'Atsisiųsti PDF (A4)'}</span>
-            </button>
+              <span>ATSISIŲSTI PDF (A4)</span>
+            </a>
             <button
               onClick={handlePrint}
               className="inline-flex items-center space-x-2.5 px-5 py-3 bg-white dark:bg-slate-800 border border-amber-200 dark:border-slate-700 hover:bg-amber-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-sm"
@@ -343,21 +347,6 @@ const SchoolAgreements: React.FC = () => {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Apatinė juosta su greita PDF nuoroda */}
-        <div className="relative z-10 mt-8 pt-6 border-t border-amber-200/60 dark:border-amber-900/40 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-xs font-bold text-slate-500 dark:text-slate-400 text-center sm:text-left">
-            Susitarimus galima atsispausdinti ir pakabinti kabinetuose bei bendrosiose mokyklos erdvėse.
-          </div>
-          <button
-            onClick={handleDownloadPdf}
-            disabled={isExporting}
-            className="inline-flex items-center space-x-2 text-amber-700 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 font-black text-xs uppercase tracking-wider"
-          >
-            <FileText size={15} />
-            <span>Atsisiųsti oficialų A4 plakatą (PDF)</span>
-          </button>
         </div>
 
       </div>

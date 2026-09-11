@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node generate-pdf.js && vite build",
     "preview": "vite preview",
     "start": "node server.js",
     "lint": "tsc --noEmit"

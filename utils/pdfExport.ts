@@ -443,12 +443,33 @@ export function buildAgreementsHtml(): string {
  * Eksportuoja Mokyklos susitarimus į PDF failą
  */
 export async function exportAgreementsToPdf(): Promise<void> {
+  const filename = 'Vilniaus_Antakalnio_progimnazija_Mokyklos_susitarimai_PEPIS.pdf';
+  const fileUrl = `/${filename}`;
+
+  // Pirmiausia bandome tiesiogiai parsiųsti paruoštą aukštos kokybės PDF dokumentą
+  try {
+    const response = await fetch(fileUrl, { method: 'HEAD' });
+    if (response.ok) {
+      const link = document.createElement('a');
+      link.href = fileUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      return;
+    }
+  } catch (e) {
+    console.warn('Tiesioginis PDF atsiuntimas nepasiekiamas, generuojama naršyklėje:', e);
+  }
+
+  // Atsarginis variantas: dinaminis generavimas naršyklėje
   const container = document.createElement('div');
   container.style.position = 'fixed';
   container.style.left = '-9999px';
   container.style.top = '-9999px';
   container.style.zIndex = '-1000';
   container.style.width = '794px';
+  container.style.minHeight = '1123px';
   container.innerHTML = buildAgreementsHtml();
   document.body.appendChild(container);
 
@@ -489,7 +510,6 @@ export async function exportAgreementsToPdf(): Promise<void> {
       }
     }
 
-    const filename = `Vilniaus_Antakalnio_progimnazija_Mokyklos_susitarimai_PEPIS.pdf`;
     pdf.save(filename);
   } finally {
     document.body.removeChild(container);
