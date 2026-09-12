@@ -1,10 +1,15 @@
-import fs from 'fs';
+import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
 import { jsPDF } from 'jspdf';
 
-const regularFont = fs.readFileSync('/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf').toString('base64');
-const boldFont = fs.readFileSync('/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf').toString('base64');
-const italicFont = fs.readFileSync('/usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf').toString('base64');
-const boldItalicFont = fs.readFileSync('/usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf').toString('base64');
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const fontsDir = join(__dirname, 'fonts');
+
+const regularFont = readFileSync(join(fontsDir, 'LiberationSans-Regular.ttf')).toString('base64');
+const boldFont = readFileSync(join(fontsDir, 'LiberationSans-Bold.ttf')).toString('base64');
+const italicFont = readFileSync(join(fontsDir, 'LiberationSans-Italic.ttf')).toString('base64');
+const boldItalicFont = readFileSync(join(fontsDir, 'LiberationSans-BoldItalic.ttf')).toString('base64');
 
 const doc = new jsPDF({
   orientation: 'portrait',
@@ -251,8 +256,9 @@ doc.text('SUSITARIMAI ATNAUJINTI: 2026-09-10', tableX + tableW, footerY + 5, { a
 
 const pdfBuffer = Buffer.from(doc.output('arraybuffer'));
 
-fs.mkdirSync('./public', { recursive: true });
-fs.writeFileSync('./public/Vilniaus_Antakalnio_progimnazija_Mokyklos_susitarimai_PEPIS.pdf', pdfBuffer);
-fs.writeFileSync('./public/susitarimai-pepis.pdf', pdfBuffer);
+const publicDir = join(__dirname, 'public');
+mkdirSync(publicDir, { recursive: true });
+writeFileSync(join(publicDir, 'Vilniaus_Antakalnio_progimnazija_Mokyklos_susitarimai_PEPIS.pdf'), pdfBuffer);
+writeFileSync(join(publicDir, 'susitarimai-pepis.pdf'), pdfBuffer);
 
 console.log('PDF generated successfully! Size:', pdfBuffer.length);
